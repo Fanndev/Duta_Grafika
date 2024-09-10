@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "grafika",
+    "password": "grafika123",
+    "database": "grafika",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "grafika",
+    "password": "grafika123",
+    "database": "grafika",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "grafika",
+    "password": "grafika123",
+    "database": "grafika",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
