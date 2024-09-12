@@ -1,7 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/views/**/*.ejs"],
   darkMode: "class",
   theme: {
     fontFamily: {
@@ -206,10 +206,10 @@ module.exports = {
         65: ".65",
       },
       backgroundImage: {
-        video: "url('../images/video/video.png')",
+        video: "url('/assets/images/video/video.png')",
       },
       content: {
-        "icon-copy": 'url("../images/icon/icon-copy-alt.svg")',
+        "icon-copy": 'url("/assets/images/icon/icon-copy-alt.svg")',
       },
       transitionProperty: { width: "width", stroke: "stroke" },
       borderWidth: {

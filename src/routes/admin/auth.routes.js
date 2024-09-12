@@ -1,4 +1,4 @@
-const authController = require('../../controller/admin/auth.controller')
+const authController = require('../../controller/admin/auth/auth.controller')
 
 module.exports = (express, app, default_router) => {
     const router = express.Router();
