@@ -6,19 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
-    "style": "npx tailwindcss -i ./public/assets/css/satoshi.css -o ./public/assets/css/style.css --watch",
+    "build": "npx tailwindcss -i ./public/assets/css/tailwind-input.css -o ./public/assets/css/tailwind.css",
+    "style": "npx tailwindcss -i ./public/assets/css/tailwind.css -o ./public/assets/css/style.css -o ./public/assets/css/satoshi.css --watch",
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@alpinejs/persist": "^3.12.0",
+    "@alpinejs/persist": "^3.14.1",
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@tailwindcss/forms": "^0.5.7",
-    "alpinejs": "^3.10.3",
+    "alpinejs": "^3.14.1",
     "apexcharts": "^3.36.3",
-    "brcypt": "^1.0.1",
+    "bcrypt": "^5.1.1",
     "cli": "^1.0.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
@@ -41,8 +42,8 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.2",
-    "babel-loader": "^8.2.3",
+    "autoprefixer": "^10.4.20",
+    "babel-loader": "^8.3.0",
     "css-loader": "^6.5.1",
     "file-loader": "^6.2.0",
     "glob": "^7.2.0",
