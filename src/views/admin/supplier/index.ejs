@@ -1,0 +1,99 @@
+<div class="p-6">
+  <div class="sm:flex sm:justify-between sm:items-center">
+    <!-- Left: Title -->
+    <div class="mb-4 sm:mb-0 py-5">
+      <h1 class="text-xl md:text-3xl text-slate-800 text-white font-bold">
+        Data Supplier
+      </h1>
+    </div>
+  </div>
+  <!-- Tombol Aksi -->
+  <div class="flex justify-between items-center mb-4 rounded-full">
+    <a
+      href="/supplier/add"
+      class="bg-white text-black px-4 py-2 rounded-full flex items-center"
+    >
+      <span>Tambah Data</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 ml-2"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </a>
+
+    <div class="flex items-center space-x-2">
+      <!-- Search bar -->
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search..."
+          class="bg-white px-4 py-2 rounded-full text-black focus:outline-none"
+        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-4.35-4.35M4.75 11a7 7 0 1114 0 7 7 0 01-14 0z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabel -->
+  <table class="min-w-full bg-white rounded-md">
+    <thead>
+      <tr>
+        <th class="py-3 px-6 bg-gray-200 text-left">Id Supplier</th>
+        <th class="py-3 px-6 bg-gray-200 text-left">Nama Supplier</th>
+        <th class="py-3 px-6 bg-gray-200 text-left">Telepon</th>
+        <th class="py-3 px-6 bg-gray-200 text-left">Alamat</th>
+        <th class="py-3 px-6 bg-gray-200 text-left">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="">
+        <td class="py-4 px-6">SP 1</td>
+        <td class="py-4 px-6">Narendra Hidayat</td>
+        <td class="py-4 px-6">6282374827387</td>
+        <td class="py-4 px-6">Jl. Kenangan raya, No 9</td>
+        <td class="py-4 px-6">Aktif</td>
+        <td class="py-4 px-6">
+          <a
+            href="/supplier/edit"
+            class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2"
+            >Ubah Data</a
+          >
+        </td>
+      </tr>
+      <tr class="">
+        <td class="py-4 px-6">PG 2</td>
+        <td class="py-4 px-6">Narendra Hidayat</td>
+        <td class="py-4 px-6">6282374827387</td>
+        <td class="py-4 px-6">Jl. Mawar raya, No 9</td>
+        <td class="py-4 px-6">Aktif</td>
+      </tr>
+      <tr class="">
+        <td class="py-4 px-6">PG 3</td>
+        <td class="py-4 px-6">Narendra Hidayat</td>
+        <td class="py-4 px-6">6282374827387</td>
+        <td class="py-4 px-6">Jl. Kebun raya, No 9</td>
+        <td class="py-4 px-6">Aktif</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

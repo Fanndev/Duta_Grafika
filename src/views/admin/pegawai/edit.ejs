@@ -1,0 +1,80 @@
+<div class="p-6">
+  <!-- Form Tambah Data (Now visible by default) -->
+  <div
+    id="formTambahData"
+    class="bg-teal-600 p-6 rounded-lg shadow-lg max-w mx-auto text-white"
+  >
+    <h2 class="text-lg font-semibold mb-6 text-center">Ubah Data Pegawai</h2>
+    <form>
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <label for="idPegawai" class="col-span-1">Id Pegawai :</label>
+        <input
+          type="text"
+          id="idPegawai"
+          name="idPegawai"
+          class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
+        />
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <label for="namaPegawai" class="col-span-1">Nama Pegawai :</label>
+        <input
+          type="text"
+          id="namaPegawai"
+          name="namaPegawai"
+          class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
+        />
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <label for="teleponPegawai" class="col-span-1">Telepon :</label>
+        <input
+          type="text"
+          id="teleponPegawai"
+          name="teleponPegawai"
+          class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
+        />
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <label for="alamatPegawai" class="col-span-1">Alamat :</label>
+        <input
+          type="text"
+          id="alamatPegawai"
+          name="alamatPegawai"
+          class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
+        />
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <label for="statusPegawai" class="col-span-1">Status :</label>
+        <select
+          id="statusPegawai"
+          name="statusPegawai"
+          class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
+        >
+          <option>Aktif</option>
+          <option>Nonaktif</option>
+        </select>
+      </div>
+
+      <!-- Tombol Aksi -->
+      <div class="flex justify-between mt-6">
+        <a
+          type="button"
+          id="batalBtn"
+          class="bg-white text-black px-6 py-2 rounded-full"
+          href="/pegawai"
+        >
+          Batal
+        </a>
+        <button
+          type="submit"
+          class="bg-black text-black-600 px-6 py-2 rounded-full"
+        >
+          Simpan
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

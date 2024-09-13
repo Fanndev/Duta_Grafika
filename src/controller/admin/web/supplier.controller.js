@@ -2,20 +2,28 @@ const { Supplier } = require("../../../models");
 const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
 // GET SUPPLIER
-exports.GetallSupplier = (req, res) => {
-  Supplier.findAll()
-    .then((result) => {
-      res.status(StatusCode.OK).json({
-        message: ResponseMessage.Success,
-        result,
-      });
-    })
-    .catch((err) => {
-      res.status(StatusCode.BAD_REQUEST).json({
-        message: ResponseMessage.NotFound,
-        err,
-      });
-    });
+exports.GetallSupplier = async (req, res) => {
+  res.render("admin/supplier/index", {
+    title: "Duta Grafika | admin",
+    layout: "layouts/admin/admin_layouts",
+    lgnUser: req.user,
+  });
+};
+
+exports.GetaddSupplier = async (req, res) => {
+  res.render("admin/supplier/add", {
+    title: "Duta Grafika | admin",
+    layout: "layouts/admin/admin_layouts",
+    lgnUser: req.user,
+  });
+};
+
+exports.GeteditSupplier = async (req, res) => {
+  res.render("admin/supplier/edit", {
+    title: "Duta Grafika | admin",
+    layout: "layouts/admin/admin_layouts",
+    lgnUser: req.user,
+  });
 };
 
 // CRUD SUPPLIER
@@ -45,7 +53,6 @@ exports.add_Suplier = async (req, res) => {
     });
   }
 };
-
 
 exports.update_Supplier = async (req, res) => {
   const supplier_id = req.params.id;
@@ -91,7 +98,6 @@ exports.update_Supplier = async (req, res) => {
     });
   }
 };
-
 
 exports.Delete_Supplier = async (req, res) => {
   const supplier_id = req.params.id;

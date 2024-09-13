@@ -1,21 +1,29 @@
 const { Pegawai } = require("../../../models");
 const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
-// GET PEGAWAI
-exports.GetallPegawai = (req, res) => {
-  Pegawai.findAll()
-    .then((result) => {
-      res.status(StatusCode.OK).json({
-        message: ResponseMessage.Success,
-        result,
-      });
-    })
-    .catch((err) => {
-      res.status(StatusCode.BAD_REQUEST).json({
-        message: ResponseMessage.NotFound,
-        err,
-      });
-    });
+// GET PAGE PEGAWAI
+exports.GetallPegawai = async (req, res) => {
+  res.render("admin/pegawai/index", {
+    title: "Duta Grafika | admin",
+    layout: "layouts/admin/admin_layouts",
+    lgnUser: req.user,
+  });
+};
+
+exports.GetpageAdd = async (req, res) => {
+  res.render("admin/pegawai/add", {
+    title: "Duta Grafika | admin",
+    layout: "layouts/admin/admin_layouts",
+    lgnUser: req.user,
+  });
+};
+
+exports.GetpageAdd = async (req, res) => {
+  res.render("admin/pegawai/edit", {
+    title: "Duta Grafika | admin",
+    layout: "layouts/admin/admin_layouts",
+    lgnUser: req.user,
+  });
 };
 
 // CRUD PEGAWAI
