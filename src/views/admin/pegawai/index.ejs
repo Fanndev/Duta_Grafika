@@ -66,34 +66,23 @@
       </tr>
     </thead>
     <tbody>
+      <% if(allPegawai.length > 0) { %> <% allPegawai.forEach((p, index) => { %>
       <tr class="">
-        <td class="py-4 px-6">PG 1</td>
-        <td class="py-4 px-6">Narendra Hidayat</td>
-        <td class="py-4 px-6">6282374827387</td>
-        <td class="py-4 px-6">Jl. Kenangan raya, No 9</td>
-        <td class="py-4 px-6">Aktif</td>
+        <td class="py-4 px-6"><%= p.kode %></td>
+        <td class="py-4 px-6"><%= p.nama_pegawai %></td>
+        <td class="py-4 px-6"><%= p.telepon %></td>
+        <td class="py-4 px-6"><%= p.alamat %></td>
+        <td class="py-4 px-6"><%= p.is_aktif %></td>
         <td class="py-4 px-6">
-          <a
-            href="/pegawai/edit"
-            class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2"
-            >Ubah Data</a
-          >
+        <a href="/pegawai/edit/<%= p.pegawai_id %>" class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2">Ubah Data</a>
         </td>
       </tr>
-      <tr class="">
-        <td class="py-4 px-6">PG 2</td>
-        <td class="py-4 px-6">Narendra Hidayat</td>
-        <td class="py-4 px-6">6282374827387</td>
-        <td class="py-4 px-6">Jl. Kenangan raya, No 9</td>
-        <td class="py-4 px-6">Aktif</td>
-      </tr>
-      <tr class="">
-        <td class="py-4 px-6">PG 3</td>
-        <td class="py-4 px-6">Narendra Hidayat</td>
-        <td class="py-4 px-6">6282374827387</td>
-        <td class="py-4 px-6">Jl. Kenangan raya, No 9</td>
-        <td class="py-4 px-6">Aktif</td>
-      </tr>
+      <% }) %>
+      <% } else { %>
+        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap justify-center" colspan="7">
+            <div class="text-center font-medium justify-center">Data tidak ada!</div>
+        </td>
+        <% } %>
     </tbody>
   </table>
 </div>

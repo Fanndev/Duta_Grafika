@@ -3,10 +3,14 @@ const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
 // GET SUPPLIER
 exports.GetallSupplier = async (req, res) => {
+   const { rows: allSupplier } = await Supplier.findAndCountAll({
+     order: [["createdAt", "DESC"]],
+   });
   res.render("admin/supplier/index", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    allSupplier
   });
 };
 
@@ -19,10 +23,13 @@ exports.GetaddSupplier = async (req, res) => {
 };
 
 exports.GeteditSupplier = async (req, res) => {
+   const supplier_id = req.params.id;
+   const data = await Supplier.findByPk(supplier_id);
   res.render("admin/supplier/edit", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    data
   });
 };
 
@@ -42,10 +49,7 @@ exports.add_Suplier = async (req, res) => {
       is_aktif,
     });
 
-    return res.status(StatusCode.CREATED).json({
-      message: ResponseMessage.Added,
-      data: addSupplier,
-    });
+    return res.redirect('/supplier')
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({
       message: ResponseMessage.FailAdded,
@@ -81,15 +85,8 @@ exports.update_Supplier = async (req, res) => {
       { where: { supplier_id } }
     );
 
-    if (updateSupplier[0] === 1) {
-      return res.status(StatusCode.OK).json({
-        message: ResponseMessage.Updated,
-        data: await Supplier.findByPk(supplier_id), // Mengembalikan data terbaru setelah update
-      });
-    } else {
-      return res.status(StatusCode.BAD_REQUEST).json({
-        message: ResponseMessage.FailUpdated,
-      });
+    if (updateSupplier) {
+      return res.redirect('/supplier')
     }
   } catch (error) {
     return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({

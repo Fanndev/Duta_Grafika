@@ -18,6 +18,25 @@ exports.GetallBarang = async (req, res) => {
     });
 };
 
+exports.GetBarangaddPage = async (req, res) => {
+    res.render("admin/barang/add", {
+      title: "Duta Grafika | admin",
+      layout: "layouts/admin/admin_layouts",
+      lgnUser: req.user,
+    });
+};
+
+exports.GetBarangeditPage = async (req, res) => {
+    const barang_id = req.params.id;
+    const data = await Barang.findByPk(barang_id)
+    res.render("admin/barang/edit", {
+      title: "Duta Grafika | admin",
+      layout: "layouts/admin/admin_layouts",
+      lgnUser: req.user,
+      data
+    });
+};
+
 // CRUD BARANG
 exports.add_Barang = async (req, res) => {
   let {
@@ -38,9 +57,9 @@ exports.add_Barang = async (req, res) => {
       harga_jual,
       keterangan
     });
-    // if (addBarang) {
-    //   return res.redirect("/admin/barang");
-    // }
+    if (addBarang) {
+      return res.redirect("/barang");
+    }
     return res.status(StatusCode.CREATED).json({
       message: ResponseMessage.Added,
       data: addBarang,
@@ -57,25 +76,8 @@ exports.update_Barang = async (req, res) => {
   const barang_id = req.params.id;
   const { kode, nama_barang, stok, harga_beli, harga_jual, keterangan } = req.body;
 
-  console.log("Received Data:", {
-    barang_id,
-    kode,
-    nama_barang,
-    stok,
-    harga_beli,
-    harga_jual,
-    keterangan,
-  }); // log untuk debug
-
   try {
-    const barang = await Barang.findByPk(barang_id);
-    if (!barang) {
-      return res.status(StatusCode.NOT_FOUND).json({
-        message: ResponseMessage.NotFound,
-      });
-    }
-
-    const updateBarang = await Barang.update(
+    const updated = await Barang.update(
       {
         kode,
         nama_barang,
@@ -90,15 +92,9 @@ exports.update_Barang = async (req, res) => {
         },
       }
     );
-    if (updateBarang[0] === 1) {
-      return res.status(StatusCode.OK).json({
-        message: ResponseMessage.Updated,
-        data: await Barang.findByPk(barang_id), // Mengembalikan data terbaru setelah update
-      });
-    } else {
-      return res.status(StatusCode.BAD_REQUEST).json({
-        message: ResponseMessage.FailUpdated,
-      });
+    
+    if (updated) {
+     return res.redirect('/barang');
     }
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({

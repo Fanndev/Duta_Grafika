@@ -3,10 +3,15 @@ const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
 // GET PAGE PEGAWAI
 exports.GetallPegawai = async (req, res) => {
+  const { rows: allPegawai } = await Pegawai.findAndCountAll({
+    order: [["createdAt", "DESC"]],
+  });
+
   res.render("admin/pegawai/index", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    allPegawai
   });
 };
 
@@ -18,11 +23,14 @@ exports.GetpageAdd = async (req, res) => {
   });
 };
 
-exports.GetpageAdd = async (req, res) => {
+exports.GetpageEdit = async (req, res) => {
+  const pegawai_id = req.params.id;
+  const data = await Pegawai.findByPk(pegawai_id);
   res.render("admin/pegawai/edit", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    data
   });
 };
 
@@ -42,10 +50,7 @@ exports.add_Pegawai = async (req, res) => {
       is_aktif,
     });
 
-    return res.status(StatusCode.CREATED).json({
-      message: ResponseMessage.Added,
-      data: addPegawai,
-    });
+    return res.redirect('/pegawai')
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({
       message: ResponseMessage.FailAdded,
@@ -62,12 +67,6 @@ exports.update_Pegawai = async (req, res) => {
   is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
 
   try {
-    const pegawai = await Pegawai.findByPk(pegawai_id);
-    if (!pegawai) {
-      return res.status(StatusCode.NOT_FOUND).json({
-        message: ResponseMessage.NotFound,
-      });
-    }
 
     // Update data supplier
     const updatePegawai = await Pegawai.update(
@@ -82,14 +81,7 @@ exports.update_Pegawai = async (req, res) => {
     );
 
     if (updatePegawai[0] === 1) {
-      return res.status(StatusCode.OK).json({
-        message: ResponseMessage.Updated,
-        data: await Pegawai.findByPk(pegawai_id), // Mengembalikan data terbaru setelah update
-      });
-    } else {
-      return res.status(StatusCode.BAD_REQUEST).json({
-        message: ResponseMessage.FailUpdated,
-      });
+      return res.redirect('/pegawai')
     }
   } catch (error) {
     return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({

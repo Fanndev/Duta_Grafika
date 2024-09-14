@@ -4,57 +4,62 @@
     id="formTambahData"
     class="bg-teal-600 p-6 rounded-lg shadow-lg max-w mx-auto text-white"
   >
-    <h2 class="text-lg font-semibold mb-6 text-center">Ubah Data Customer</h2>
-    <form>
+    <h2 class="text-lg font-semibold mb-6 text-center">Edit Data Customer</h2>
+    <form action="/customer/<%= data.customer_id %>" method="post">
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="idPegawai" class="col-span-1">Id Customer :</label>
+        <label for="kode" class="col-span-1">Id Customer :</label>
         <input
           type="text"
-          id="idPegawai"
-          name="idPegawai"
+          id="kode"
+          value="<%= data.kode %>"
+          name="kode"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="namaPegawai" class="col-span-1">Nama Customer :</label>
+        <label for="nama_customer" class="col-span-1">Nama Customer :</label>
         <input
           type="text"
-          id="namaPegawai"
-          name="namaPegawai"
+          id="nama_customer"
+          value="<%= data.nama_customer %>"
+          name="nama_customer"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="teleponPegawai" class="col-span-1">Telepon :</label>
+        <label for="telepon" class="col-span-1">Telepon :</label>
         <input
           type="text"
-          id="teleponPegawai"
-          name="teleponPegawai"
+          id="telepon"
+          value="<%= data.telepon %>"
+          name="telepon"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="alamatPegawai" class="col-span-1">Alamat :</label>
+        <label for="alamat" class="col-span-1">Alamat :</label>
         <input
           type="text"
-          id="alamatPegawai"
-          name="alamatPegawai"
+          id="alamat"
+          value="<%= data.alamat %>"
+          name="alamat"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="statusPegawai" class="col-span-1">Status :</label>
+        <label for="is_aktif" class="col-span-1">Status :</label>
         <select
-          id="statusPegawai"
-          name="statusPegawai"
+          id="is_aktif"
+          value="<%= data.is_aktif %>"
+          name="is_aktif"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         >
-          <option>Aktif</option>
-          <option>Nonaktif</option>
+          <option value="true">Aktif</option>
+          <option value="false">Nonaktif</option>
         </select>
       </div>
 

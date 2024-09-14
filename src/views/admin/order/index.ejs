@@ -61,48 +61,33 @@
       <tr>
         <th class="py-3 px-6 bg-gray-200 text-left">Id Order</th>
         <th class="py-3 px-6 bg-gray-200 text-left">Tgl Terima</th>
+        <th class="py-3 px-6 bg-gray-200 text-left">Tgl ambil</th>
         <th class="py-3 px-6 bg-gray-200 text-left">Nama Pemesan</th>
         <th class="py-3 px-6 bg-gray-200 text-left">Jenis Pesanan</th>
         <th class="py-3 px-6 bg-gray-200 text-left">Qty</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Ket</th>
+        <th class="py-3 px-6 bg-gray-200 text-left">keterangan</th>
       </tr>
     </thead>
     <tbody>
+<% if(allOrder.length > 0) { %> <% allOrder.forEach((o, index) => { %>
       <tr class="">
-        <td class="py-4 px-6">OR 1</td>
-        <td class="py-4 px-6">05/0424</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rs Kasih Ibu</td>
-        <td class="py-4 px-6">Kertas</td>
-        <td class="py-4 px-6">650 Lbr</td>
-        <td class="py-4 px-6">Kertas Vesalus</td>
+        <td class="py-4 px-6"><%= o.kode %></td>
+        <td class="py-4 px-6"><%= o.tgl_terima %></td>
+        <td class="py-4 px-6"><%= o.tgl_ambil %></td>
+        <td class="py-4 px-6"><%= o.nama_pesanan %></td>
+        <td class="py-4 px-6"><%= o.jenis_pesanan %></td>
+        <td class="py-4 px-6"><%= o.qty %></td>
+        <td class="py-4 px-6"><%= o.keterangan %></td>
         <td class="py-4 px-6">
-          <a
-            href="/order/edit"
-            class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2"
-            >Ubah Data</a
-          >
+        <a href="/order/edit/<%= o.orderan_id %>" class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2">Ubah Data</a>
         </td>
       </tr>
-      <tr class="">
-        <td class="py-4 px-6">OR 1</td>
-        <td class="py-4 px-6">05/0424</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rs Kasih Ibu</td>
-        <td class="py-4 px-6">Kertas</td>
-        <td class="py-4 px-6">650 Lbr</td>
-        <td class="py-4 px-6">Kertas Vesalus</td>
-      </tr>
-      <tr class="">
-        <td class="py-4 px-6">OR 1</td>
-        <td class="py-4 px-6">05/0424</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rs Kasih Ibu</td>
-        <td class="py-4 px-6">Kertas</td>
-        <td class="py-4 px-6">650 Lbr</td>
-        <td class="py-4 px-6">Kertas Vesalus</td>
-      </tr>
-
+      <% }) %>
+      <% } else { %>
+        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap justify-center" colspan="7">
+            <div class="text-center font-medium justify-center">Data tidak ada!</div>
+        </td>
+        <% } %>
     </tbody>
   </table>
 </div>

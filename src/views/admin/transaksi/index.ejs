@@ -65,41 +65,28 @@
         <th class="py-3 px-6 bg-gray-200 text-left">Total Order</th>
         <th class="py-3 px-6 bg-gray-200 text-left">Harga Barang</th>
         <th class="py-3 px-6 bg-gray-200 text-left">Status</th>
+        <th class="py-3 px-6 bg-gray-200 text-left">Aksi</th>
       </tr>
     </thead>
     <tbody>
+     <% if(allTrans.length > 0) { %> <% allTrans.forEach((t, index) => { %>
       <tr class="">
-        <td class="py-4 px-6">PEMB 1</td>
-        <td class="py-4 px-6">Tas Hermes</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rp 120.000</td>
-        <td class="py-4 px-6">Lunas</td>
-        <td class="py-4 px-6">Aktif</td>
+        <td class="py-4 px-6"><%= t.kode %></td>
+        <td class="py-4 px-6"><%= t.nama_barang %></td>
+        <td class="py-4 px-6"><%= t.tgl_pembelian %></td>
+        <td class="py-4 px-6"><%= t.total_order %></td>
+        <td class="py-4 px-6"><%= t.harga_barang %></td>
+        <td class="py-4 px-6"><%= t.is_aktif %></td>
         <td class="py-4 px-6">
-          <a
-            href="/transaksi/edit"
-            class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2"
-            >Ubah Data</a
-          >
+        <a href="/transaksi/edit/<%= t.transaksi_id %>" class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2">Ubah Data</a>
         </td>
-     
       </tr>
-      <tr class=""></tr>
-        <td class="py-4 px-6">PEMB 1</td>
-        <td class="py-4 px-6">Tas Hermes</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rp 120.000</td>
-        <td class="py-4 px-6">Lunas</td>
-        <td class="py-4 px-6">Aktif</td>
-      </tr>
-      <tr class=""></tr>
-        <td class="py-4 px-6">PEMB 1</td>
-        <td class="py-4 px-6">Tas Hermes</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rp 120.000</td>
-        <td class="py-4 px-6">Lunas</td>
-        <td class="py-4 px-6">Aktif</td>
-      </tr>
+      <% }) %>
+      <% } else { %>
+        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap justify-center" colspan="7">
+            <div class="text-center font-medium justify-center">Data tidak ada!</div>
+        </td>
+        <% } %>
     </tbody>
   </table>
 </div>

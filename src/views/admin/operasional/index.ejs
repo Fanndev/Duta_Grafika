@@ -68,37 +68,24 @@
       </tr>
     </thead>
     <tbody>
+      <% if(allOp.length > 0) { %> <% allOp.forEach((o, index) => { %>
       <tr class="">
-        <td class="py-4 px-6">OP 1</td>
-        <td class="py-4 px-6">Token Listrik</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rp 120.000.000</td>
-        <td class="py-4 px-6">0</td>
-        <td class="py-4 px-6">Nurul Maulida</td>
+        <td class="py-4 px-6"><%= o.kode %></td>
+        <td class="py-4 px-6"><%= o.nama_oper %></td>
+        <td class="py-4 px-6"><%= o.tgl_transaksi %></td>
+        <td class="py-4 px-6"><%= o.debet %></td>
+        <td class="py-4 px-6"><%= o.kredit %></td>
+        <td class="py-4 px-6"><%= o.nama_pegawai %></td>
         <td class="py-4 px-6">
-          <a
-            href="/operasional/edit"
-            class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2"
-            >Ubah Data</a
-          >
+        <a href="/operasional/edit/<%= o.operasional_id %>" class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2">Ubah Data</a>
         </td>
       </tr>
-      <tr class="">
-        <td class="py-4 px-6">OP 1</td>
-        <td class="py-4 px-6">Token Listrik</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rp 120.000.000</td>
-        <td class="py-4 px-6">0</td>
-        <td class="py-4 px-6">Nurul Maulida</td>
-      </tr>
-      <tr class=""></tr>
-        <td class="py-4 px-6">OP 1</td>
-        <td class="py-4 px-6">Token Listrik</td>
-        <td class="py-4 px-6">01/08/24</td>
-        <td class="py-4 px-6">Rp 120.000.000</td>
-        <td class="py-4 px-6">0</td>
-        <td class="py-4 px-6">Nurul Maulida</td>
-      </tr>
+      <% }) %>
+      <% } else { %>
+        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap justify-center" colspan="7">
+            <div class="text-center font-medium justify-center">Data tidak ada!</div>
+        </td>
+        <% } %>
 
     </tbody>
   </table>

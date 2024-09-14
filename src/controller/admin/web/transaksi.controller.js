@@ -3,10 +3,14 @@ const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
 // GET TRANSAKSI
 exports.GetallTransaksi = async (req, res) => {
+  const { rows: allTrans } = await Transaksi.findAndCountAll({
+    order: [["createdAt", "DESC"]],
+  });
   res.render("admin/transaksi/index", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    allTrans
   });
 };
 
@@ -19,33 +23,34 @@ exports.GetaddTransaksi = async (req, res) => {
 };
 
 exports.GeteditTransaksi = async (req, res) => {
+   const transaksi_id = req.params.id;
+   const data = await Transaksi.findByPk(transaksi_id);
   res.render("admin/transaksi/edit", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    data
   });
 };
 
-// CRUD SUPPLIER
-exports.add_Suplier = async (req, res) => {
-  let { kode, nama, telepon, alamat, is_aktif } = req.body;
+// CRUD Transaksi
+exports.add_transaksi = async (req, res) => {
+  let { kode, nama_barang, tgl_pembelian, total_order, harga_barang, is_aktif } = req.body;
 
   // Konversi is_aktif menjadi boolean jika diperlukan
   is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
 
   try {
-    const addSupplier = await Supplier.create({
+    const add = await Transaksi.create({
       kode,
-      nama,
-      telepon,
-      alamat,
+      nama_barang,
+      tgl_pembelian,
+      total_order,
+      harga_barang,
       is_aktif,
     });
 
-    return res.status(StatusCode.CREATED).json({
-      message: ResponseMessage.Added,
-      data: addSupplier,
-    });
+    return res.redirect("/transaksi")
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({
       message: ResponseMessage.FailAdded,
@@ -54,42 +59,35 @@ exports.add_Suplier = async (req, res) => {
   }
 };
 
-exports.update_Supplier = async (req, res) => {
-  const supplier_id = req.params.id;
-  let { kode, nama, telepon, alamat, is_aktif } = req.body;
+exports.update_transaksi = async (req, res) => {
+  const transaksi_id = req.params.id;
+  let {
+    kode,
+    nama_barang,
+    tgl_pembelian,
+    total_order,
+    harga_barang,
+    is_aktif,
+  } = req.body;
 
   // Konversi is_aktif menjadi boolean jika diperlukan
   is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
 
   try {
-    const supplier = await Supplier.findByPk(supplier_id);
-    if (!supplier) {
-      return res.status(StatusCode.NOT_FOUND).json({
-        message: ResponseMessage.NotFound,
-      });
-    }
-
-    // Update data supplier
-    const updateSupplier = await Supplier.update(
+    const update = await Transaksi.update(
       {
         kode,
-        nama,
-        telepon,
-        alamat,
+        nama_barang,
+        tgl_pembelian,
+        total_order,
+        harga_barang,
         is_aktif,
       },
-      { where: { supplier_id } }
+      { where: { transaksi_id } }
     );
 
-    if (updateSupplier[0] === 1) {
-      return res.status(StatusCode.OK).json({
-        message: ResponseMessage.Updated,
-        data: await Supplier.findByPk(supplier_id), // Mengembalikan data terbaru setelah update
-      });
-    } else {
-      return res.status(StatusCode.BAD_REQUEST).json({
-        message: ResponseMessage.FailUpdated,
-      });
+    if (update[0] === 1) {
+      return res.redirect('/transaksi')
     }
   } catch (error) {
     return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
@@ -99,7 +97,7 @@ exports.update_Supplier = async (req, res) => {
   }
 };
 
-exports.Delete_Supplier = async (req, res) => {
+exports.Delete_transaksi = async (req, res) => {
   const supplier_id = req.params.id;
 
   try {

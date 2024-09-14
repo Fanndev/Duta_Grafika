@@ -64,37 +64,27 @@
         <th class="py-3 px-6 bg-gray-200 text-left">Telepon</th>
         <th class="py-3 px-6 bg-gray-200 text-left">Alamat</th>
         <th class="py-3 px-6 bg-gray-200 text-left">Status</th>
+        <th class="py-3 px-6 bg-gray-200 text-left">Aksi</th>
       </tr>
     </thead>
     <tbody>
+      <% if(allCustomer.length > 0) { %> <% allCustomer.forEach((c, index) => { %>
       <tr class="">
-        <td class="py-4 px-6">PG 1</td>
-        <td class="py-4 px-6">Narendra Hidayat</td>
-        <td class="py-4 px-6">6282374827387</td>
-        <td class="py-4 px-6">Jl. Kenangan raya, No 9</td>
-        <td class="py-4 px-6">Aktif</td>
+        <td class="py-4 px-6"><%= c.kode %></td>
+        <td class="py-4 px-6"><%= c.nama_customer %></td>
+        <td class="py-4 px-6"><%= c.telepon %></td>
+        <td class="py-4 px-6"><%= c.alamat %></td>
+        <td class="py-4 px-6"><%= c.is_aktif %></td>
         <td class="py-4 px-6">
-          <a
-            href="/customer/edit"
-            class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2"
-            >Ubah Data</a
-          >
+        <a href="/customer/edit/<%= c.customer_id %>" class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2">Ubah Data</a>
         </td>
       </tr>
-      <tr class="">
-        <td class="py-4 px-6">PG 2</td>
-        <td class="py-4 px-6">Narendra Hidayat</td>
-        <td class="py-4 px-6">6282374827387</td>
-        <td class="py-4 px-6">Jl. Mawar raya, No 9</td>
-        <td class="py-4 px-6">Aktif</td>
-      </tr>
-      <tr class="">
-        <td class="py-4 px-6">PG 3</td>
-        <td class="py-4 px-6">Narendra Hidayat</td>
-        <td class="py-4 px-6">6282374827387</td>
-        <td class="py-4 px-6">Jl. Kebun raya, No 9</td>
-        <td class="py-4 px-6">Aktif</td>
-      </tr>
+      <% }) %>
+      <% } else { %>
+        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap justify-center" colspan="7">
+            <div class="text-center font-medium justify-center">Data tidak ada!</div>
+        </td>
+        <% } %>
     </tbody>
   </table>
 </div>

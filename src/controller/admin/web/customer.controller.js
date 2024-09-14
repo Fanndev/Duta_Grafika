@@ -1,12 +1,16 @@
-const { Pegawai } = require("../../../models");
+const { Customer } = require("../../../models");
 const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
-// GET PAGE PEGAWAI
+// GET PAGE Customer
 exports.GetallCustomer = async (req, res) => {
+    const { rows: allCustomer } = await Customer.findAndCountAll({
+      order: [["createdAt", "DESC"]],
+    });
   res.render("admin/customer/index", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    allCustomer
   });
 };
 
@@ -19,103 +23,88 @@ exports.GetpageAdd = async (req, res) => {
 };
 
 exports.GetpageEdit = async (req, res) => {
+  const customer_id = req.params.id;
+  const data = await Customer.findByPk(customer_id);
   res.render("admin/customer/edit", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    data
   });
 };
 
-// CRUD PEGAWAI
-// exports.add_Pegawai = async (req, res) => {
-//   let { kode, nama_pegawai, telepon, alamat, is_aktif } = req.body;
+// CRUD Customer
+exports.add_customer = async (req, res) => {
+  let { kode, nama_customer, telepon, alamat, is_aktif } = req.body;
 
-//   // Konversi is_aktif menjadi boolean jika diperlukan
-//   is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
+  // Konversi is_aktif menjadi boolean jika diperlukan
+  is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
 
-//   try {
-//     const addPegawai = await Pegawai.create({
-//       kode,
-//       nama_pegawai,
-//       telepon,
-//       alamat,
-//       is_aktif,
-//     });
+  try {
+    const add = await Customer.create({
+      kode,
+      nama_customer,
+      telepon,
+      alamat,
+      is_aktif,
+    });
 
-//     return res.status(StatusCode.CREATED).json({
-//       message: ResponseMessage.Added,
-//       data: addPegawai,
-//     });
-//   } catch (error) {
-//     return res.status(StatusCode.BAD_REQUEST).json({
-//       message: ResponseMessage.FailAdded,
-//       error: error.message, // Tambahkan pesan error untuk debug
-//     });
-//   }
-// };
+    return res.redirect("/customer")
+  } catch (error) {
+    return res.status(StatusCode.BAD_REQUEST).json({
+      message: ResponseMessage.FailAdded,
+      error: error.message, // Tambahkan pesan error untuk debug
+    });
+  }
+};
 
-// exports.update_Pegawai = async (req, res) => {
-//   const pegawai_id = req.params.id;
-//   let { kode, nama_pegawai, telepon, alamat, is_aktif } = req.body;
+exports.update_Customer = async (req, res) => {
+  const customer_id = req.params.id;
+  let { kode, nama_customer, telepon, alamat, is_aktif } = req.body;
 
-//   // Konversi is_aktif menjadi boolean jika diperlukan
-//   is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
+  // Konversi is_aktif menjadi boolean jika diperlukan
+  is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
 
-//   try {
-//     const pegawai = await Pegawai.findByPk(pegawai_id);
-//     if (!pegawai) {
-//       return res.status(StatusCode.NOT_FOUND).json({
-//         message: ResponseMessage.NotFound,
-//       });
-//     }
+  try {
+    const update = await Customer.update(
+      {
+        kode,
+        nama_customer,
+        telepon,
+        alamat,
+        is_aktif,
+      },
+      { where: { customer_id } }
+    );
 
-//     // Update data supplier
-//     const updatePegawai = await Pegawai.update(
-//       {
-//         kode,
-//         nama_pegawai,
-//         telepon,
-//         alamat,
-//         is_aktif,
-//       },
-//       { where: { pegawai_id } }
-//     );
+    if (update) {
+    return res.redirect('/customer')
+    }
+  } catch (error) {
+    return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
+      message: ResponseMessage.Error,
+      error: error.message, // Tambahkan pesan error untuk debugging
+    });
+  }
+};
 
-//     if (updatePegawai[0] === 1) {
-//       return res.status(StatusCode.OK).json({
-//         message: ResponseMessage.Updated,
-//         data: await Pegawai.findByPk(pegawai_id), // Mengembalikan data terbaru setelah update
-//       });
-//     } else {
-//       return res.status(StatusCode.BAD_REQUEST).json({
-//         message: ResponseMessage.FailUpdated,
-//       });
-//     }
-//   } catch (error) {
-//     return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
-//       message: ResponseMessage.Error,
-//       error: error.message, // Tambahkan pesan error untuk debugging
-//     });
-//   }
-// };
+exports.Delete_Customer = async (req, res) => {
+  const customer_id = req.params.id;
 
-// exports.Delete_Pegawai = async (req, res) => {
-//   const pegawai_id = req.params.id;
+  try {
+    const Delete = await Customer.destroy({
+      where: {
+        customer_id,
+      },
+    });
 
-//   try {
-//     const Delete_Pegawai = await Pegawai.destroy({
-//       where: {
-//         pegawai_id,
-//       },
-//     });
-
-//     return res.status(StatusCode.OK).json({
-//       message: ResponseMessage.Removed,
-//       data: Delete_Pegawai,
-//     });
-//   } catch (error) {
-//     return res.status(StatusCode.BAD_REQUEST).json({
-//       message: ResponseMessage.FailRemoved,
-//     });
-//   }
-// };
+    return res.status(StatusCode.OK).json({
+      message: ResponseMessage.Removed,
+      data: Delete,
+    });
+  } catch (error) {
+    return res.status(StatusCode.BAD_REQUEST).json({
+      message: ResponseMessage.FailRemoved,
+    });
+  }
+};

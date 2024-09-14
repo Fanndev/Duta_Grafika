@@ -5,77 +5,75 @@
     class="bg-teal-600 p-6 rounded-lg shadow-lg max-w mx-auto text-white"
   >
     <h2 class="text-lg font-semibold mb-6 text-center">Tambah Data Orderan</h2>
-    <form>
+    <form action="/order" method="post">
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="idPegawai" class="col-span-1">Id Orderan :</label>
+        <label for="kode" class="col-span-1">Id Orderan :</label>
         <input
           type="text"
-          id="idPegawai"
-          name="idPegawai"
+          id="kode"
+          name="kode"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="namaPegawai" class="col-span-1">Supplier :</label>
+        <label for="tgl_terima" class="col-span-1">tanggal Terima :</label>
         <input
           type="text"
-          id="namaPegawai"
-          name="namaPegawai"
+          id="tgl_terima"
+          name="tgl_terima"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="teleponPegawai" class="col-span-1">Tanggal :</label>
+        <label for="tgl_ambil" class="col-span-1">Tanggal ambil :</label>
         <input
           type="text"
-          id="teleponPegawai"
-          name="teleponPegawai"
+          id="tgl_ambil"
+          name="tgl_ambil"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="alamatPegawai" class="col-span-1">Barang :</label>
+        <label for="nama_pesanan" class="col-span-1">Nama Pesanan :</label>
         <input
           type="text"
-          id="alamatPegawai"
-          name="alamatPegawai"
+          id="nama_pesanan"
+          name="nama_pesanan"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="alamatPegawai" class="col-span-1">Qty :</label>
+        <label for="qty" class="col-span-1">Qty :</label>
         <input
           type="text"
-          id="alamatPegawai"
-          name="alamatPegawai"
+          id="qty"
+          name="qty"
+          class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
+        />
+      </div>
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <label for="jenis_pesanan" class="col-span-1">jenis_pesanan :</label>
+        <input
+          type="text"
+          id="jenis_pesanan"
+          name="jenis_pesanan"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="alamatPegawai" class="col-span-1">Harga Beli :</label>
+        <label for="keterangan" class="col-span-1">keterangan :</label>
         <input
           type="text"
-          id="alamatPegawai"
-          name="alamatPegawai"
+          id="keterangan"
+          name="keterangan"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
-
-      <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="alamatPegawai" class="col-span-1">Total :</label>
-        <input
-          type="text"
-          id="alamatPegawai"
-          name="alamatPegawai"
-          class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
-        />
-      </div>
-
 
       <!-- Tombol Aksi -->
       <div class="flex justify-between mt-6">

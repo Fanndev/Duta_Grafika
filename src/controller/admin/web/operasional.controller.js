@@ -1,12 +1,17 @@
-const { Orderan } = require("../../../models");
+const { Operasional } = require("../../../models");
 const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
+const { Op } = require("sequelize");
 
 // GET OPERASIONAL
 exports.GetallOperasional= async (req, res) => {
+   const { rows: allOp } = await Operasional.findAndCountAll({
+     order: [["createdAt", "DESC"]],
+   });
   res.render("admin/operasional/index", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    allOp
   });
 };
 
@@ -19,33 +24,32 @@ exports.GetaddOperasional = async (req, res) => {
 };
 
 exports.GeteditOperasional = async (req, res) => {
+  const operasional_id = req.params.id;
+  const data = await Operasional.findByPk(operasional_id);
   res.render("admin/operasional/edit", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    data
   });
 };
 
 // CRUD SUPPLIER
-exports.add_Suplier = async (req, res) => {
-  let { kode, nama, telepon, alamat, is_aktif } = req.body;
-
-  // Konversi is_aktif menjadi boolean jika diperlukan
-  is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
+exports.add_oper = async (req, res) => {
+  let { kode, nama_oper, tgl_transaksi, debet, kredit, nama_pegawai } =
+    req.body;
 
   try {
-    const addSupplier = await Supplier.create({
+    const add = await Operasional.create({
       kode,
-      nama,
-      telepon,
-      alamat,
-      is_aktif,
+      nama_oper,
+      tgl_transaksi,
+      debet,
+      kredit,
+      nama_pegawai,
     });
 
-    return res.status(StatusCode.CREATED).json({
-      message: ResponseMessage.Added,
-      data: addSupplier,
-    });
+    return res.redirect("/operasional")
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({
       message: ResponseMessage.FailAdded,
@@ -54,42 +58,26 @@ exports.add_Suplier = async (req, res) => {
   }
 };
 
-exports.update_Supplier = async (req, res) => {
-  const supplier_id = req.params.id;
-  let { kode, nama, telepon, alamat, is_aktif } = req.body;
-
-  // Konversi is_aktif menjadi boolean jika diperlukan
-  is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
+exports.update_oper = async (req, res) => {
+  const operasional_id = req.params.id;
+  let { kode, nama_oper, tgl_transaksi, debet, kredit, nama_pegawai } =
+    req.body;
 
   try {
-    const supplier = await Supplier.findByPk(supplier_id);
-    if (!supplier) {
-      return res.status(StatusCode.NOT_FOUND).json({
-        message: ResponseMessage.NotFound,
-      });
-    }
-
-    // Update data supplier
-    const updateSupplier = await Supplier.update(
+    const updated = await Operasional.update(
       {
         kode,
-        nama,
-        telepon,
-        alamat,
-        is_aktif,
+        nama_oper,
+        tgl_transaksi,
+        debet,
+        kredit,
+        nama_pegawai,
       },
-      { where: { supplier_id } }
+      { where: { operasional_id } }
     );
 
-    if (updateSupplier[0] === 1) {
-      return res.status(StatusCode.OK).json({
-        message: ResponseMessage.Updated,
-        data: await Supplier.findByPk(supplier_id), // Mengembalikan data terbaru setelah update
-      });
-    } else {
-      return res.status(StatusCode.BAD_REQUEST).json({
-        message: ResponseMessage.FailUpdated,
-      });
+    if (updated[0] === 1) {
+      return res.redirect('/operasional')
     }
   } catch (error) {
     return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
@@ -99,19 +87,19 @@ exports.update_Supplier = async (req, res) => {
   }
 };
 
-exports.Delete_Supplier = async (req, res) => {
-  const supplier_id = req.params.id;
+exports.Delete_Operasional = async (req, res) => {
+  const operasional_id = req.params.id;
 
   try {
-    const Delete_Supplier = await Supplier.destroy({
+    const Delete = await Operasional.destroy({
       where: {
-        supplier_id,
+        operasional_id,
       },
     });
 
     return res.status(StatusCode.OK).json({
       message: ResponseMessage.Removed,
-      data: Delete_Supplier,
+      data: Delete,
     });
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({
