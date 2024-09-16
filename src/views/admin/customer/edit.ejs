@@ -5,7 +5,7 @@
     class="bg-teal-600 p-6 rounded-lg shadow-lg max-w mx-auto text-white"
   >
     <h2 class="text-lg font-semibold mb-6 text-center">Edit Data Customer</h2>
-    <form action="/customer/<%= data.customer_id %>" method="post">
+    <form id="formUbahCustomer" action="/customer/<%= data.customer_id %>" method="post">
       <div class="grid grid-cols-3 gap-4 mb-4">
         <label for="kode" class="col-span-1">Id Customer :</label>
         <input
@@ -83,3 +83,26 @@
     </form>
   </div>
 </div>
+
+
+<script>
+  document.getElementById('formUbahCustomer').addEventListener('submit', function(event) {
+    event.preventDefault(); // Mencegah form langsung submit
+
+    Swal.fire({
+      title: 'Konfirmasi',
+      text: "Apakah kamu yakin ingin mengubah data Customer ini?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, ubah!',
+      cancelButtonText: 'Batal',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Jika dikonfirmasi, lanjutkan submit form
+        this.submit();
+      }
+    });
+  });
+</script>

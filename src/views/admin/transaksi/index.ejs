@@ -56,37 +56,97 @@
   </div>
 
   <!-- Tabel -->
-  <table class="min-w-full bg-white rounded-md">
+  <div class="overflow-x-auto">
+  <table class="min-w-full bg-white rounded-md w-full shadow-lg">
     <thead>
       <tr>
-        <th class="py-3 px-6 bg-gray-200 text-left">Id Pembeli</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Nama Barang</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Tanggal Pembelian</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Total Order</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Harga Barang</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Status</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Aksi</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Id Pembeli</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Nama Barang</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Tanggal Pembelian</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Total Order</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Harga Barang</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Status</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Aksi</th>
       </tr>
     </thead>
     <tbody>
-     <% if(allTrans.length > 0) { %> <% allTrans.forEach((t, index) => { %>
-      <tr class="">
-        <td class="py-4 px-6"><%= t.kode %></td>
-        <td class="py-4 px-6"><%= t.nama_barang %></td>
-        <td class="py-4 px-6"><%= t.tgl_pembelian %></td>
-        <td class="py-4 px-6"><%= t.total_order %></td>
-        <td class="py-4 px-6"><%= t.harga_barang %></td>
-        <td class="py-4 px-6"><%= t.is_aktif %></td>
-        <td class="py-4 px-6">
-        <a href="/transaksi/edit/<%= t.transaksi_id %>" class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2">Ubah Data</a>
-        </td>
-      </tr>
-      <% }) %>
+      <% if (allTrans.length > 0) { %>
+        <% allTrans.forEach((t) => { %>
+          <tr class="hover:bg-gray-50">
+            <td class="py-4 px-6 text-sm text-gray-700"><%= t.kode %></td>
+            <td class="py-4 px-6 text-sm text-gray-700"><%= t.nama_barang %></td>
+            <td class="py-4 px-6 text-sm text-gray-700"><%= t.tgl_pembelian %></td>
+            <td class="py-4 px-6 text-sm text-gray-700"><%= t.total_order %></td>
+            <td class="py-4 px-6 text-sm text-gray-700"><%= t.harga_barang %></td>
+            <td class="py-4 px-6 text-sm text-gray-700">
+              <% if (t.is_aktif===true) { %>
+              <div class="inline-flex font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2.5 py-0.5">
+                  Aktif
+              </div>
+          <% } else if (t.is_aktif===false) { %>
+          <div class="inline-flex font-medium bg-rose-100 text-rose-500 rounded-full text-center px-2.5 py-0.5">
+              NonAktif
+          </div>
+          <% } %>
+            </td>
+            <td class="py-4 px-6 flex space-x-2">
+              <a href="/transaksi/edit/<%= t.transaksi_id %>" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2 text-xs">Ubah Data</a>
+              <button type="button"
+              class="bg-red-500 hover:bg-red-600 text-white font-semibold rounded-md px-4 py-2 text-xs" 
+              onclick="confirmDelete('<%= t.transaksi_id %>')">
+              Hapus
+              </button>
+            </td>
+          </tr>
+        <% }) %>
       <% } else { %>
-        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap justify-center" colspan="7">
-            <div class="text-center font-medium justify-center">Data tidak ada!</div>
-        </td>
-        <% } %>
+        <tr>
+          <td class="px-2 first:pl-5 last:pr-5 py-3 text-center text-gray-500" colspan="7">
+            Data tidak ada!
+          </td>
+        </tr>
+      <% } %>
     </tbody>
   </table>
 </div>
+</div>
+
+
+</div>
+
+
+<script>
+  async function confirmDelete(transaksiId) {
+    const result = await Swal.fire({
+      title: "Apakah kamu yakin?",
+      text: "Aksi ini tidak bisa dibatalkan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal"
+    });
+
+    if (result.isConfirmed) {
+      // Panggil route delete menggunakan fetch API
+      try {
+        const response = await fetch(`/transaksi/${transaksiId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          Swal.fire("Berhasil!", "transaksi berhasil dihapus.", "success");
+          // Tambahkan logika untuk refresh halaman atau redirect jika diperlukan
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        } else {
+          Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus transaksi.", "error");
+        }
+      } catch (error) {
+        Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus transaksi.", "error");
+      }
+    }
+  }
+</script>

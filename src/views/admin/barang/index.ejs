@@ -27,29 +27,36 @@
   </div>
 
   <!-- Tabel -->
-  <table class="min-w-full bg-white rounded-md">
+ <div class="overflow-x-auto">
+  <table class="min-w-full bg-white rounded-md w-full shadow-lg">
     <thead>
       <tr>
-        <th class="py-3 px-6 bg-gray-200 text-left">Id Brng</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Nama Barang</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Stok</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Harga Beli</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Harga Jual</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Keterangan</th>
-        <th class="py-3 px-6 bg-gray-200 text-left">Aksi</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Id Brng</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Nama Barang</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Stok</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Harga Beli</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Harga Jual</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Keterangan</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Aksi</th>
       </tr>
     </thead>
     <tbody>
         <% if(allBarang.length > 0) { %> <% allBarang.forEach((b, index) => { %>
-      <tr class="">
-        <td class="py-4 px-6"><%= b.kode %></td>
-        <td class="py-4 px-6"><%= b.nama_barang %></td>
-        <td class="py-4 px-6"><%= b.stok %></td>
-        <td class="py-4 px-6"><%= b.harga_beli %></td>
-        <td class="py-4 px-6"><%= b.harga_jual %></td>
-        <td class="py-4 px-6"><%= b.keterangan %></td>
-        <td class="py-4 px-6">
-        <a href="/barang/edit/<%= b.barang_id %>" class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2">Ubah Data</a>
+      <tr class="hover:bg-gray-50">
+        <td class="py-4 px-6 text-sm text-gray-700"><%= b.kode %></td>
+        <td class="py-4 px-6 text-sm text-gray-700"><%= b.nama_barang %></td>
+        <td class="py-4 px-6 text-sm text-gray-700"><%= b.stok %></td>
+        <td class="py-4 px-6 text-sm text-gray-700"><%= b.harga_beli %></td>
+        <td class="py-4 px-6 text-sm text-gray-700"><%= b.harga_jual %></td>
+        <td class="py-4 px-6 text-sm text-gray-700"><%= b.keterangan %></td>
+        <td class="py-4 px-6 flex space-x-2">
+        <a href="/barang/edit/<%= b.barang_id %>" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2 text-xs">Ubah Data</a>
+        <button type="button" 
+        class="bg-red-500 hover:bg-red-600 text-white font-semibold rounded-md px-4 py-2 text-xs" 
+        onclick="confirmDelete('<%= b.barang_id %>')">
+        Hapus
+        </button>
+
         </td>
       </tr>
       <% }) %>
@@ -61,3 +68,40 @@
     </tbody>
   </table>
 </div>
+</div>
+
+<script>
+  async function confirmDelete(barangId) {
+    const result = await Swal.fire({
+      title: "Apakah kamu yakin?",
+      text: "Aksi ini tidak bisa dibatalkan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal"
+    });
+
+    if (result.isConfirmed) {
+      // Panggil route delete menggunakan fetch API
+      try {
+        const response = await fetch(`/barang/${barangId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          Swal.fire("Berhasil!", "Barang berhasil dihapus.", "success");
+          // Tambahkan logika untuk refresh halaman atau redirect jika diperlukan
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        } else {
+          Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus barang.", "error");
+        }
+      } catch (error) {
+        Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus barang.", "error");
+      }
+    }
+  }
+</script>

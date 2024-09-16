@@ -115,8 +115,7 @@ exports.Delete_Barang = async (req, res) => {
 
     return res.status(StatusCode.OK).json({
       message: ResponseMessage.Removed,
-      data: deleteBarang,
-    });
+    })
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({
       message: ResponseMessage.FailRemoved,
