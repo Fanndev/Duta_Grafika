@@ -6,6 +6,7 @@ const session = require("express-session");
 const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
+const passport = require("passport");
 
 // port
 const port = process.env._PORT;
@@ -23,6 +24,11 @@ app.use(
   })
 );
 app.use(flash());
+
+require("./src/middleware/auth.passport");
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 const sequelize = require("./src/config/database/db");
 sequelize
