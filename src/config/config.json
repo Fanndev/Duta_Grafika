@@ -4,20 +4,20 @@
     "password": "grafika123",
     "database": "grafika",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "mysql"
   },
   "test": {
     "username": "grafika",
     "password": "grafika123",
     "database": "grafika",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "mysql"
   },
   "production": {
     "username": "grafika",
     "password": "grafika123",
     "database": "grafika",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "mysql"
   }
 }
