@@ -22,13 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         field: "user_id", // Nama kolom sebenarnya di database
       },
-      usename: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      role_id: {
-        type: DataTypes.INTEGER,
-        defaultValue: 2,
-      },
     },
     {
       sequelize,
