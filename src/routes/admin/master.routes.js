@@ -21,7 +21,7 @@ module.exports = (express, app, default_router) => {
   // Supplier
   router.get("/supplier", login, supplierController.GetallSupplier); // supplier
   router.get("/supplier/add", login, supplierController.GetaddSupplier); // supplier
-  router.get("/supplier/edit/:id",login, supplierController.GeteditSupplier); // supplier
+  router.get("/supplier/edit/:id", login, supplierController.GeteditSupplier); // supplier
   router.post("/supplier", login, supplierController.add_Suplier); // supplier
   router.post("/supplier/:id", login, supplierController.update_Supplier); // supplier
   router.delete("/supplier/:id", login, supplierController.Delete_Supplier); // supplier
@@ -60,7 +60,7 @@ module.exports = (express, app, default_router) => {
 
   // Operasional
   router.get("/operasional", login, operasionalController.GetallOperasional); // Operasional
-  router.get("/operasional/add",login, operasionalController.GetaddOperasional); // Operasional
+  router.get("/operasional/add", login, operasionalController.GetaddOperasional); // Operasional
   router.get("/operasional/edit/:id", login, operasionalController.GeteditOperasional); // Operasional
   router.post("/operasional", login, operasionalController.add_oper); // operasional
   router.post("/operasional/:id", login, operasionalController.update_oper); // operasional

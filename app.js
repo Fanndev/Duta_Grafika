@@ -28,6 +28,11 @@ app.use(flash());
 require("./src/middleware/auth.passport");
 app.use(passport.initialize());
 app.use(passport.session());
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  res.locals.messages = req.flash();
+  next();
+});
 
 
 const sequelize = require("./src/config/database/db");
