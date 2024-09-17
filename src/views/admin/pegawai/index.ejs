@@ -29,25 +29,27 @@
     </a>
 
     <div class="flex items-center space-x-2">
-      <!-- Search bar -->
+      <!-- Download Button -->
       <div class="relative">
-        <input
-          type="text"
-          placeholder="Search..."
-          class="bg-white px-4 py-2 rounded-full text-black focus:outline-none"
-        />
+        <button
+          class="bg-white px-6 py-2 pl-8 pr-12 rounded-full text-black focus:outline-none font-semibold text-right"
+        >
+          Unduh Data Ke Excel
+        </button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
+          viewBox="0 0 16 16"
+          style="margin-left: 8px"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 21l-4.35-4.35M4.75 11a7 7 0 1114 0 7 7 0 01-14 0z"
+            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"
+          />
+          <path
+            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"
           />
         </svg>
       </div>
@@ -56,53 +58,92 @@
 
   <!-- Tabel -->
   <div class="overflow-x-auto">
-  <table class="min-w-full bg-white rounded-md w-full shadow-lg">
-    <thead>
-      <tr>
-        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Id Pegawai</th>
-        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Nama Pegawai</th>
-        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Telepon</th>
-        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Alamat</th>
-        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Status</th>
-        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Aksi</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if(allPegawai.length > 0) { %> <% allPegawai.forEach((p, index) => { %>
-      <tr class="hover:bg-gray-50">
-        <td class="py-4 px-6 text-sm text-gray-700"><%= p.kode %></td>
-        <td class="py-4 px-6 text-sm text-gray-700"><%= p.nama_pegawai %></td>
-        <td class="py-4 px-6 text-sm text-gray-700"><%= p.telepon %></td>
-        <td class="py-4 px-6 text-sm text-gray-700"><%= p.alamat %></td>
-        <td class="py-4 px-6 text-sm text-gray-700">
-          <% if (p.is_aktif===true) { %>
-              <div class="inline-flex font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2.5 py-0.5">
-                  Aktif
-              </div>
-          <% } else if (p.is_aktif===false) { %>
-          <div class="inline-flex font-medium bg-rose-100 text-rose-500 rounded-full text-center px-2.5 py-0.5">
+    <table class="min-w-full bg-white rounded-md w-full shadow-lg">
+      <thead>
+        <tr>
+          <th
+            class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600"
+          >
+            Id Pegawai
+          </th>
+          <th
+            class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600"
+          >
+            Nama Pegawai
+          </th>
+          <th
+            class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600"
+          >
+            Telepon
+          </th>
+          <th
+            class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600"
+          >
+            Alamat
+          </th>
+          <th
+            class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600"
+          >
+            Status
+          </th>
+          <th
+            class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600"
+          >
+            Aksi
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(allPegawai.length > 0) { %> <% allPegawai.forEach((p, index) => {
+        %>
+        <tr class="hover:bg-gray-50">
+          <td class="py-4 px-6 text-sm text-gray-700"><%= p.kode %></td>
+          <td class="py-4 px-6 text-sm text-gray-700"><%= p.nama_pegawai %></td>
+          <td class="py-4 px-6 text-sm text-gray-700"><%= p.telepon %></td>
+          <td class="py-4 px-6 text-sm text-gray-700"><%= p.alamat %></td>
+          <td class="py-4 px-6 text-sm text-gray-700">
+            <% if (p.is_aktif===true) { %>
+            <div
+              class="inline-flex font-medium bg-emerald-100 text-emerald-600 rounded-full text-center px-2.5 py-0.5"
+            >
+              Aktif
+            </div>
+            <% } else if (p.is_aktif===false) { %>
+            <div
+              class="inline-flex font-medium bg-rose-100 text-rose-500 rounded-full text-center px-2.5 py-0.5"
+            >
               NonAktif
+            </div>
+            <% } %>
+          </td>
+          <td class="py-4 px-6 flex space-x-2">
+            <a
+              href="/pegawai/edit/<%= p.pegawai_id %>"
+              class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2 text-xs"
+              >Ubah Data</a
+            >
+            <button
+              type="button"
+              class="bg-red-500 hover:bg-red-600 text-white font-semibold rounded-md px-4 py-2 text-xs"
+              onclick="confirmDelete('<%= p.pegawai_id %>')"
+            >
+              Hapus
+            </button>
+          </td>
+        </tr>
+        <% }) %> <% } else { %>
+        <td
+          class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap justify-center"
+          colspan="7"
+        >
+          <div class="text-center font-medium justify-center">
+            Data tidak ada!
           </div>
-          <% } %>
-        </td>
-        <td class="py-4 px-6 flex space-x-2">
-        <a href="/pegawai/edit/<%= p.pegawai_id %>" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-md px-4 py-2 text-xs">Ubah Data</a>
-        <button type="button"
-        class="bg-red-500 hover:bg-red-600 text-white font-semibold rounded-md px-4 py-2 text-xs" 
-        onclick="confirmDelete('<%= p.pegawai_id %>')">
-        Hapus
-        </button>
-        </td>
-      </tr>
-      <% }) %>
-      <% } else { %>
-        <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap justify-center" colspan="7">
-            <div class="text-center font-medium justify-center">Data tidak ada!</div>
         </td>
         <% } %>
-    </tbody>
-  </table>
-</div>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
@@ -115,14 +156,14 @@
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Ya, hapus!",
-      cancelButtonText: "Batal"
+      cancelButtonText: "Batal",
     });
 
     if (result.isConfirmed) {
       // Panggil route delete menggunakan fetch API
       try {
         const response = await fetch(`/pegawai/${pegawaiId}`, {
-          method: 'DELETE'
+          method: "DELETE",
         });
 
         if (response.ok) {
@@ -132,10 +173,18 @@
             window.location.reload();
           }, 1500);
         } else {
-          Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus pegawai.", "error");
+          Swal.fire(
+            "Gagal!",
+            "Terjadi kesalahan saat menghapus pegawai.",
+            "error"
+          );
         }
       } catch (error) {
-        Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus pegawai.", "error");
+        Swal.fire(
+          "Gagal!",
+          "Terjadi kesalahan saat menghapus pegawai.",
+          "error"
+        );
       }
     }
   }
