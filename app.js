@@ -7,9 +7,13 @@ const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const passport = require("passport");
+const path = require("path");
 
 // port
 const port = process.env._PORT;
+
+// Serving static files from the 'uploads' folder
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // express setup
 app.use(methodOverride("_"));
