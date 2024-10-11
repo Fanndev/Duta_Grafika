@@ -2,7 +2,8 @@ const barangController = require("../../controller/admin/web/barang.controller")
 const supplierController = require("../../controller/admin/web/supplier.controller");
 const pegawaiController = require("../../controller/admin/web/pegawai.controller");
 const customerController = require("../../controller/admin/web/customer.controller");
-const transaksiController = require("../../controller/admin/web/transaksi.controller");
+const transaksiController = require("../../controller/admin/web/transaksiPembelian.controller");
+const transaksiPenjualanController = require("../../controller/admin/web/transaksiPenjualan.controller");
 const orderController = require("../../controller/admin/web/orderan.controller");
 const operasionalController = require("../../controller/admin/web/operasional.controller")
 const { ensureLoggedIn } = require("connect-ensure-login");
@@ -42,13 +43,21 @@ module.exports = (express, app, default_router) => {
   router.post("/customer/:id", login, customerController.update_Customer); // customer
   router.delete("/customer/:id", login, customerController.Delete_Customer); // customer
 
-  // Transaksi
-  router.get("/transaksi", login, transaksiController.GetallTransaksi); // Transaksi
-  router.get("/transaksi/add", login, transaksiController.GetaddTransaksi); // Transaksi
-  router.get("/transaksi/edit/:id", login, transaksiController.GeteditTransaksi); // Transaksi
-  router.post("/transaksi", login, transaksiController.add_transaksi); // transaksi
-  router.post("/transaksi/:id", login, transaksiController.update_transaksi); // transaksi
-  router.delete("/transaksi/:id", login, transaksiController.Delete_transaksi); // transaksi
+  // Transaksi PEMBELIAN
+  router.get("/transaksi_pembelian", login, transaksiController.GetallTransaksi); // Transaksi
+  router.get("/transaksi_pembelian/add", login, transaksiController.GetaddTransaksi); // Transaksi
+  router.get("/transaksi_pembelian/edit/:id", login, transaksiController.GeteditTransaksi); // Transaksi
+  router.post("/transaksi_pembelian", login, transaksiController.add_transaksi); // transaksi
+  router.post("/transaksi_pembelian/:id", login, transaksiController.update_transaksi); // transaksi
+  router.delete("/transaksi_pembelian/:id", login, transaksiController.Delete_transaksi); // transaksi
+
+  // Transaksi PENJUALAN
+  router.get("/transaksi_penjualan", login, transaksiPenjualanController.GetallTransaksi); // Transaksi
+  router.get("/transaksi_penjualan/add", login, transaksiPenjualanController.GetaddTransaksi); // Transaksi
+  router.get("/transaksi_penjualan/edit/:id", login, transaksiPenjualanController.GeteditTransaksi); // Transaksi
+  router.post("/transaksi_penjualan", login, transaksiPenjualanController.add_transaksi); // transaksi
+  router.post("/transaksi_penjualan/:id", login, transaksiPenjualanController.update_transaksi); // transaksi
+  router.delete("/transaksi_penjualan/:id", login, transaksiPenjualanController.Delete_transaksi); // transaksi
 
   // Order
   router.get("/order", login, orderController.GetallOrderan); // Order

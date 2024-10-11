@@ -4,14 +4,16 @@
     id="formTambahData"
     class="bg-teal-600 p-6 rounded-lg shadow-lg max-w mx-auto text-white"
   >
-    <h2 class="text-lg font-semibold mb-6 text-center">Tambah Data Transaksi</h2>
-    <form id="formTambahtransaksi" action="/transaksi" method="post">
+    <h2 class="text-lg font-semibold mb-6 text-center">
+      Tambah Data Transaksi Pembelian
+    </h2>
+    <form id="formTambahtransaksi" action="/transaksi_pembelian" method="post">
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="kode" class="col-span-1">Id Pembeli :</label>
+        <label for="nota" class="col-span-1">No. Nota :</label>
         <input
           type="text"
-          id="kode"
-          name="kode"
+          id="nota"
+          name="nota"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
@@ -27,45 +29,60 @@
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="tgl_pembelian" class="col-span-1">Tgl Pembeli :</label>
+        <label for="nama_supplier" class="col-span-1">Nama Supplier :</label>
         <input
           type="text"
-          id="tgl_pembelian"
-          name="tgl_pembelian"
+          id="nama_supplier"
+          name="nama_supplier"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="total_order" class="col-span-1">Total Order :</label>
+        <label for="harga" class="col-span-1">Harga :</label>
         <input
           type="text"
-          id="total_order"
-          name="total_order"
+          id="harga"
+          name="harga"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="harga_barang" class="col-span-1">Harga Barang :</label>
+        <label for="qty" class="col-span-1">Qty :</label>
         <input
           type="text"
-          id="harga_barang"
-          name="harga_barang"
+          id="qty"
+          name="qty"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
         />
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <label for="is_aktif" class="col-span-1">Status :</label>
-        <select
-          id="is_aktif"
-          name="is_aktif"
+      <label for="subtotal" class="col-span-1">Sub Total :</label>
+      <input
+        type="text"
+        id="subtotal"
+        name="total_pembelian_display"
+        class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
+        readonly
+      />
+      <input
+        type="hidden"
+        id="total_pembelian"
+        name="total_pembelian"
+      />
+    </div>
+
+
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <label for="total_bayar" class="col-span-1">Total Bayar :</label>
+        <input
+          type="text"
+          id="total_bayar"
+          name="total_bayar"
           class="col-span-2 bg-teal-500 px-4 py-2 rounded-md text-black focus:outline-none"
-        >
-          <option value="true">Aktif</option>
-          <option value="false">Nonaktif</option>
-        </select>
+        />
       </div>
 
       <!-- Tombol Aksi -->
@@ -74,7 +91,7 @@
           type="button"
           id="batalBtn"
           class="bg-white text-black px-6 py-2 rounded-full"
-          href="/transaksi"
+          href="/transaksi_pembelian"
         >
           Batal
         </a>
@@ -90,6 +107,31 @@
 </div>
 
 <script>
+  function calculateSubtotal() {
+  const harga = parseFloat(document.getElementById("harga").value) || 0;
+  const qty = parseInt(document.getElementById("qty").value) || 0;
+  const subtotal = harga * qty;
+
+  // Format subtotal as Rupiah for display
+  const subtotalFormatted = subtotal.toLocaleString('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0
+  });
+  
+  // Update the displayed subtotal
+  document.getElementById("subtotal").value = subtotalFormatted;
+  
+  // Save the raw subtotal value in the hidden input field (without formatting)
+  document.getElementById("total_pembelian").value = subtotal;
+}
+
+// Event listeners for changes in harga and qty
+document.getElementById("harga").addEventListener("input", calculateSubtotal);
+document.getElementById("qty").addEventListener("input", calculateSubtotal);
+
+
+  // SweetAlert2 confirmation on form submit
   document
     .getElementById("formTambahtransaksi")
     .addEventListener("submit", function (event) {

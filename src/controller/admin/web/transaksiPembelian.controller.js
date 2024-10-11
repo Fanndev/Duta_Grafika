@@ -1,12 +1,12 @@
-const { Transaksi } = require("../../../models");
+const { Transaksipembelian } = require("../../../models");
 const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
-// GET TRANSAKSI
+// GET TRANSAKSI Pembelian
 exports.GetallTransaksi = async (req, res) => {
-  const { rows: allTrans } = await Transaksi.findAndCountAll({
+  const { rows: allTrans } = await Transaksipembelian.findAndCountAll({
     order: [["createdAt", "DESC"]],
   });
-  res.render("admin/transaksi/index", {
+  res.render("admin/transaksi_pembelian/index", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
@@ -15,7 +15,7 @@ exports.GetallTransaksi = async (req, res) => {
 };
 
 exports.GetaddTransaksi = async (req, res) => {
-  res.render("admin/transaksi/add", {
+  res.render("admin/transaksi_pembelian/add", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
@@ -23,9 +23,9 @@ exports.GetaddTransaksi = async (req, res) => {
 };
 
 exports.GeteditTransaksi = async (req, res) => {
-   const transaksi_id = req.params.id;
-   const data = await Transaksi.findByPk(transaksi_id);
-  res.render("admin/transaksi/edit", {
+   const pembelian_id = req.params.id;
+   const data = await Transaksipembelian.findByPk(pembelian_id);
+  res.render("admin/transaksi_pembelian/edit", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
@@ -35,22 +35,21 @@ exports.GeteditTransaksi = async (req, res) => {
 
 // CRUD Transaksi
 exports.add_transaksi = async (req, res) => {
-  let { kode, nama_barang, tgl_pembelian, total_order, harga_barang, is_aktif } = req.body;
-
-  // Konversi is_aktif menjadi boolean jika diperlukan
-  is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
+  let { nota, nama_barang, harga, tanggal, nama_supplier, total_pembelian, total_bayar, qty } = req.body;
 
   try {
-    const add = await Transaksi.create({
-      kode,
+    const add = await Transaksipembelian.create({
+      nota,
       nama_barang,
-      tgl_pembelian,
-      total_order,
-      harga_barang,
-      is_aktif,
+      tanggal,
+      harga,
+      nama_supplier,
+      total_pembelian,
+      total_bayar,
+      qty,
     });
 
-    return res.redirect("/transaksi")
+    return res.redirect("/transaksi_pembelian");
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({
       message: ResponseMessage.FailAdded,
@@ -60,34 +59,35 @@ exports.add_transaksi = async (req, res) => {
 };
 
 exports.update_transaksi = async (req, res) => {
-  const transaksi_id = req.params.id;
+  const pembelian_id = req.params.id;
   let {
-    kode,
+    nota,
     nama_barang,
-    tgl_pembelian,
-    total_order,
-    harga_barang,
-    is_aktif,
+    harga,
+    tanggal,
+    nama_supplier,
+    total_pembelian,
+    total_bayar,
+    qty,
   } = req.body;
 
-  // Konversi is_aktif menjadi boolean jika diperlukan
-  is_aktif = is_aktif === "true" || is_aktif === true ? true : false;
-
   try {
-    const update = await Transaksi.update(
+    const update = await Transaksipembelian.update(
       {
-        kode,
+        nota,
         nama_barang,
-        tgl_pembelian,
-        total_order,
-        harga_barang,
-        is_aktif,
+        harga,
+        tanggal,
+        nama_supplier,
+        total_pembelian,
+        total_bayar,
+        qty,
       },
-      { where: { transaksi_id } }
+      { where: { pembelian_id } }
     );
 
     if (update[0] === 1) {
-      return res.redirect('/transaksi')
+      return res.redirect('/transaksi_pembelian')
     }
   } catch (error) {
     return res.status(StatusCode.INTERNAL_SERVER_ERROR).json({
@@ -98,18 +98,18 @@ exports.update_transaksi = async (req, res) => {
 };
 
 exports.Delete_transaksi = async (req, res) => {
-  const supplier_id = req.params.id;
+  const pembelian_id = req.params.id;
 
   try {
-    const Delete_Supplier = await Supplier.destroy({
+    const Delete_transaksi = await Transaksipembelian.destroy({
       where: {
-        supplier_id,
+        pembelian_id,
       },
     });
 
     return res.status(StatusCode.OK).json({
       message: ResponseMessage.Removed,
-      data: Delete_Supplier,
+      data: Delete_transaksi,
     });
   } catch (error) {
     return res.status(StatusCode.BAD_REQUEST).json({

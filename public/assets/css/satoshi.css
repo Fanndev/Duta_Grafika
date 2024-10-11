@@ -1048,11 +1048,6 @@ video {
   background-color: rgb(6 78 59 / var(--tw-bg-opacity));
 }
 
-.bg-graydark {
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 58 72 / var(--tw-bg-opacity));
-}
-
 .bg-green-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(22 101 52 / var(--tw-bg-opacity));
@@ -1066,11 +1061,6 @@ video {
 .bg-meta-2 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 242 247 / var(--tw-bg-opacity));
-}
-
-.bg-meta-4 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(49 61 74 / var(--tw-bg-opacity));
 }
 
 .bg-red-500 {

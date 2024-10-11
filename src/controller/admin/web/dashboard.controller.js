@@ -6,7 +6,7 @@ const {
   Orderan,
   Pegawai,
   Supplier,
-  Transaksi
+  Transaksipembelian
 } = require("../../../models")
 
 
@@ -17,7 +17,7 @@ const {
   const total_Pegawai = (await Pegawai.findAndCountAll()).count;
   const total_supplier = (await Supplier.findAndCountAll()).count;
   const total_Barang = (await Barang.findAndCountAll()).count;
-  const total_Transaksi = (await Transaksi.findAndCountAll()).count;
+  const total_Transaksi = (await Transaksipembelian.findAndCountAll()).count;
   res.render("admin/dashboard", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
