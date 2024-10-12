@@ -33,6 +33,9 @@ module.exports = {
       qty: {
         type: Sequelize.INTEGER,
       },
+      kode: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

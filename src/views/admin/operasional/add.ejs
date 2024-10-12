@@ -17,6 +17,20 @@
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
+        <label for="kode" class="col-span-1">Kode Akun :</label>
+        <div class="m-1.5">
+          <div>
+          <select id="kode" class="bg-teal-600 form-select border border-gray-300 rounded-md shadow-sm">
+              <option class="bg-teal-600 p-6 rounded-lg shadow-lg max-w mx-auto text-slate-700">- Kode -</option>
+              <% ListAkun.forEach(kode => { %>
+              <option class="bg-teal-600 p-6 rounded-lg shadow-lg max-w mx-auto text-slate-700" value="<%= kode.akun_id %>"><%= kode.kode %></option>
+              <% }) %>
+          </select>
+          </div>
+      </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 mb-4">
         <label for="nama_oper" class="col-span-1">Nama Operasional :</label>
         <input
           type="text"

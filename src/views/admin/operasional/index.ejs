@@ -63,6 +63,7 @@
     <thead>
       <tr>
         <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Id Oper</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Kode Akun</th>
         <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Nama Oper</th>
         <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Tgl Trans</th>
         <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Debet</th>
@@ -74,6 +75,7 @@
     <tbody>
       <% if(allOp.length > 0) { %> <% allOp.forEach((o, index) => { %>
       <tr class="hover:bg-gray-50">
+        <td class="py-4 px-6 text-sm text-gray-700"><%= o.kode %></td>
         <td class="py-4 px-6 text-sm text-gray-700"><%= o.kode %></td>
         <td class="py-4 px-6 text-sm text-gray-700"><%= o.nama_oper %></td>
         <td class="py-4 px-6 text-sm text-gray-700"><%= o.tgl_transaksi %></td>

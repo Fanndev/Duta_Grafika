@@ -1,4 +1,4 @@
-const { Operasional } = require("../../../models");
+const { Operasional, Data_akun } = require("../../../models");
 const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 const { Op } = require("sequelize");
 

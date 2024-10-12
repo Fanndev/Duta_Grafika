@@ -63,6 +63,7 @@
     <thead>
       <tr>
         <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">No. Nota</th>
+        <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Kode Akun</th>
         <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Hari / Tanggal</th>
         <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Nama Supplier</th>
         <th class="py-3 px-6 bg-gray-100 text-left font-semibold text-sm text-gray-600">Total Pembelian</th>
@@ -75,6 +76,7 @@
         <% allTrans.forEach((t) => { %>
           <tr class="hover:bg-gray-50">
             <td class="py-4 px-6 text-sm text-gray-700"><%= t.nota %></td>
+            <td class="py-4 px-6 text-sm text-gray-700"><%= t.kode %></td>
             <td class="py-4 px-6 text-sm text-gray-700"><%= new Date(t.createdAt).toLocaleDateString() %></td>
             <td class="py-4 px-6 text-sm text-gray-700"><%= t.nama_supplier %></td>
             <td class="py-4 px-6 text-sm text-gray-700"><%= (t.total_pembelian) %></td>

@@ -1,4 +1,7 @@
-const { Transaksipenjualan } = require("../../../models");
+const { 
+  Transaksipenjualan,
+  Data_akun
+ } = require("../../../models");
 const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
 // GET TRANSAKSI Penjualan
@@ -15,31 +18,37 @@ exports.GetallTransaksi = async (req, res) => {
 };
 
 exports.GetaddTransaksi = async (req, res) => {
+  const ListAkun = await Data_akun.findAll()
   res.render("admin/transaksi_penjualan/add", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    ListAkun
   });
 };
 
 exports.GeteditTransaksi = async (req, res) => {
    const penjualan_id = req.params.id;
+   const ListAkun = await Data_akun.findAll()
    const data = await Transaksipenjualan.findByPk(penjualan_id);
   res.render("admin/transaksi_penjualan/edit", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
-    data
+    data,
+    ListAkun
   });
 };
 
 // CRUD Transaksi
 exports.add_transaksi = async (req, res) => {
-  let { nota, harga, nama_barang, qty,total_pembelian, total_bayar, kembali } = req.body;
+  let { nota, data_akun, kode, harga, nama_barang, qty,total_pembelian, total_bayar, kembali } = req.body;
 
   try {
     const add = await Transaksipenjualan.create({
       nota,
+      data_akun,
+      kode,
       harga,
       nama_barang,
       qty,
@@ -59,13 +68,15 @@ exports.add_transaksi = async (req, res) => {
 
 exports.update_transaksi = async (req, res) => {
   const penjualan_id = req.params.id;
-  let { nota, harga, nama_barang, qty, total_pembelian, total_bayar, kembali } =
+  let { nota, data_akun, kode, harga, nama_barang, qty, total_pembelian, total_bayar, kembali } =
     req.body;
 
   try {
     const update = await Transaksipenjualan.update(
       {
         nota,
+        data_akun,
+        kode,
         harga,
         nama_barang,
         qty,

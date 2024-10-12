@@ -6,6 +6,7 @@ const transaksiController = require("../../controller/admin/web/transaksiPembeli
 const transaksiPenjualanController = require("../../controller/admin/web/transaksiPenjualan.controller");
 const orderController = require("../../controller/admin/web/orderan.controller");
 const operasionalController = require("../../controller/admin/web/operasional.controller")
+const DataAkunController = require("../../controller/admin/web/data_akun.controller")
 const { ensureLoggedIn } = require("connect-ensure-login");
 const login = ensureLoggedIn({ redirectTo: "/auth/login" });
 module.exports = (express, app, default_router) => {
@@ -18,6 +19,14 @@ module.exports = (express, app, default_router) => {
   router.post("/pegawai", login, pegawaiController.add_Pegawai); // pegawai
   router.post("/pegawai/:id", login, pegawaiController.update_Pegawai); // pegawai
   router.delete("/pegawai/:id", login, pegawaiController.Delete_Pegawai); // pegawai
+
+  // data akun
+  router.get("/data_akun", login, DataAkunController.Getall); // data akun
+  router.get("/data_akun/add", login, DataAkunController.GetpageAdd); // data akun
+  router.get("/data_akun/edit/:id", login, DataAkunController.GetpageEdit); // data akun
+  router.post("/data_akun", login, DataAkunController.add_dataAkun); // data akun
+  router.post("/data_akun/:id", login, DataAkunController.update_dataAkun); // data akun
+  router.delete("/data_akun/:id", login, DataAkunController.Delete_dataAkun); // data akun
 
   // Supplier
   router.get("/supplier", login, supplierController.GetallSupplier); // supplier

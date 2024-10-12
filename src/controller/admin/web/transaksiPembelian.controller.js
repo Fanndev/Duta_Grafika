@@ -1,4 +1,4 @@
-const { Transaksipembelian } = require("../../../models");
+const { Transaksipembelian, Data_akun } = require("../../../models");
 const { ResponseMessage, StatusCode } = require("../../../helpers/httpStatus");
 
 // GET TRANSAKSI Pembelian
@@ -15,21 +15,25 @@ exports.GetallTransaksi = async (req, res) => {
 };
 
 exports.GetaddTransaksi = async (req, res) => {
+  const ListAkun = await Data_akun.findAll()
   res.render("admin/transaksi_pembelian/add", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
+    ListAkun
   });
 };
 
 exports.GeteditTransaksi = async (req, res) => {
    const pembelian_id = req.params.id;
+   const ListAkun = await Data_akun.findAll()
    const data = await Transaksipembelian.findByPk(pembelian_id);
   res.render("admin/transaksi_pembelian/edit", {
     title: "Duta Grafika | admin",
     layout: "layouts/admin/admin_layouts",
     lgnUser: req.user,
-    data
+    data,
+    ListAkun
   });
 };
 
